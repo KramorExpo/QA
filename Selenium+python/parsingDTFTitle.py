@@ -1,4 +1,5 @@
 from selenium import webdriver
+import json
 
 driver = webdriver.Chrome('/usr/local/bin/chromedriver')
 driver.get('https://dtf.ru/')
@@ -15,10 +16,12 @@ def return_elements_by_class_and_type(className, type):
 
     return result
 
-print(return_elements_by_class_and_type("content-header__title", "text"))
-print(return_elements_by_class_and_type("content-feed__link", "href"))
+try:
+    text = return_elements_by_class_and_type("content-header__title", "text")
+    href = return_elements_by_class_and_type("content-feed__link", "href")
+finally: driver.close()
 
-driver.close()
-
+json_result = json.dumps(text, href)
+print(json_result)
 
 
